@@ -9,7 +9,7 @@
 
 ## Description
 
-[Authentication Microservice](https://github.com/ocamilomontealegre/user-microservice) for the social network app
+[Authentication Microservice](https://github.com/ocamilomontealegre/authentication-microservice) for the social network app
 
 ## Installation
 
