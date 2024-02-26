@@ -6,18 +6,21 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthenticationService } from './services/authentication.service';
-import { User } from './schemas/user.schema';
-import { CreateUserDto } from './dto/user.dto';
-import { AuthenticationUserDto } from './dto/authentication.dto';
-import { JwtDto, RefreshTokenDto } from './dto/token.dto';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../schemas/user.schema';
+import { CreateUserDto } from '../dto/user.dto';
+import { AuthenticationUserDto } from '../dto/authentication.dto';
+import { JwtDto, RefreshTokenDto } from '../dto/token.dto';
 
-@Controller()
+@ApiTags('authenticate')
+@Controller('auth')
 export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
   private readonly logger = new Logger(AuthenticationController.name);
 
-  // Register the player in the system
+  // Register the user in the system
+  @ApiOperation({ summary: 'Register the user in the database' })
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto): Promise<User | object> {
     try {
@@ -30,7 +33,8 @@ export class AuthenticationController {
     }
   }
 
-  // Log the player in the system
+  // Log the user in the system
+  @ApiOperation({ summary: 'Log the user in the system' })
   @Post('login')
   async login(
     @Body() authenticationUserDto: AuthenticationUserDto,
@@ -50,6 +54,7 @@ export class AuthenticationController {
   }
 
   // Log out the player from the system
+  @ApiOperation({ summary: 'Log the player out of the system' })
   @Post('logout')
   async logout(@Body() jwtDto: JwtDto): Promise<object> {
     try {
@@ -63,6 +68,7 @@ export class AuthenticationController {
   }
 
   // Refresh accessToken for the player
+  @ApiOperation({ summary: 'Refresh accessToken' })
   @Post('refresh')
   async refreshToken(
     @Body() refreshTokenDto: RefreshTokenDto,

@@ -1,7 +1,19 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class JwtDto {
-  constructor(public accessToken: string) {}
+  @ApiProperty()
+  accessToken: string;
+
+  constructor(accessToken: string) {
+    this.accessToken = accessToken;
+  }
 }
 
 export class RefreshTokenDto {
-  constructor(public refreshToken: string) {}
+  @ApiProperty()
+  refreshToken: string;
+
+  constructor(refreshToken: string) {
+    this.refreshToken = refreshToken;
+  }
 }
