@@ -37,6 +37,7 @@ export class AuthenticationService {
 
     try {
       const user = (await this.httpServices.getData(`${url}/${email}`)) as User;
+      if (user[0].deletedAt) throw new Error(`User account previously deleted`);
       const paswordValidation = await compare(password, user[0].password);
       if (user && paswordValidation) {
         return user;
